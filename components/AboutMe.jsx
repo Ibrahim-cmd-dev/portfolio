@@ -194,7 +194,7 @@ const AboutMe = () => {
             variants={skillsCardVariants} // Use specific variants (now simplified)
             whileHover={{ scale: 1.02, y: -5, transition: { duration: 0.3 } }} // Subtle hover
           >
-            <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-6 text-center md:text-left">My Skills</h3>
+            <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-6 text-center md:text-left">Tech Stack</h3>
             {/* Container for skills list to apply stagger animation */}
             <motion.div variants={skillListVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
               {skills.map((skill) => (
