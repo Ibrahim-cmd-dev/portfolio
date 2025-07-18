@@ -43,12 +43,12 @@ const UnlockCard = ({ onClick }) => {
 };
 
 // --- Social Buttons Component ---
-// Define social links here (replace # with your actual profile URLs)
+
 const socialLinks = {
-  github: '#',
-  linkedin: '#',
-  whatsapp: 'https://wa.me/YOUR_PHONE_NUMBER', // Replace YOUR_PHONE_NUMBER with your number including country code e.g., +201234567890
-  instagram: '#',
+  github: 'https://github.com/Ibrahim-cmd-dev',
+  linkedin: 'https://www.linkedin.com/in/ibrahim-mohamed-184872375/',
+  whatsapp: 'https://wa.me/+201004333589', 
+  instagram: 'https://www.instagram.com/mazenx98/',
 };
 
 const SocialButtons = () => {
