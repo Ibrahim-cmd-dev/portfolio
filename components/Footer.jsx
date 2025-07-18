@@ -4,10 +4,10 @@ import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 
 // Optional: Define social links again or import from a shared constants file
 const socialLinks = {
-  github: '#',
-  linkedin: '#',
-  whatsapp: 'https://wa.me/YOUR_PHONE_NUMBER', // Replace YOUR_PHONE_NUMBER
-  instagram: '#',
+  github: 'https://github.com/Ibrahim-cmd-dev',
+  linkedin: 'https://www.linkedin.com/in/ibrahim-mohamed-184872375/',
+  whatsapp: 'https://wa.me/+201004333589', 
+  instagram: 'https://www.instagram.com/mazenx98/',
 };
 
 const Footer = () => {
