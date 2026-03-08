@@ -22,15 +22,15 @@ const projectsData = [
   },
   {
     id: 3, // E-commerce Concept
-    title: 'E-commerce Next.js',
-    description: 'A conceptual online store interface using Next.js.',
-    liveUrl: '#', // Replace with actual URL or repository if available
+    title: 'Greens RealEstate',
+    description: 'A live modern real estate website built with Next.js.',
+    liveUrl: 'www.greensrealestate.property', // Replace with actual URL or repository if available
     imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=E-commerce',
   },
   {
     id: 4, // Dashboard
     title: 'Dashboard',
-    description: 'A data visualization dashboard concept displaying key metrics.',
+    description: 'COMING SOON.',
     liveUrl: '#', // Replace with actual URL or repository if available
     imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=Dashboard',
   },
