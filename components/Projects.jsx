@@ -25,12 +25,12 @@ const projectsData = [
     title: 'Greens RealEstate',
     description: 'A live modern real estate website built with Next.js.',
     liveUrl: 'www.greensrealestate.property', // Replace with actual URL or repository if available
-    imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=E-commerce',
+    imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=Greens Real-Estate',
   },
   {
     id: 4, // Dashboard
     title: 'Dashboard',
-    description: 'COMING SOON.',
+    description: 'COMING SOON it will be built with Next.js and will have a small db too for the data that will be viewed on it.',
     liveUrl: '#', // Replace with actual URL or repository if available
     imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=Dashboard',
   },
