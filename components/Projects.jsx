@@ -24,7 +24,7 @@ const projectsData = [
     id: 3, // E-commerce Concept
     title: 'Greens RealEstate',
     description: 'A live modern real estate website built with Next.js.',
-    liveUrl: 'www.greensrealestate.property', // Replace with actual URL or repository if available
+    liveUrl: 'https://www.greensrealestate.property', // Replace with actual URL or repository if available
     imageUrl: 'https://placehold.co/600x400/1a1a1a/f5f5f5?text=Greens Real-Estate',
   },
   {
