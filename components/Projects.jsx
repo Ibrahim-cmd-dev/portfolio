@@ -80,7 +80,7 @@ const Projects = () => {
             imageUrl={project.imageUrl}
             // *** THIS LINE IS THE KEY CHANGE ***
             // Pass "Live" only for Maison Curtains (id: 1), otherwise default "Live Demo" will be used
-            buttonText={project.id === 1 ? "Live" : undefined}
+            buttonText={project.id === 1 || project.id === 3 ? "Live" : undefined}
           />
         ))}
       </div>
