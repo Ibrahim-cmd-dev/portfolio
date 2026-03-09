@@ -42,6 +42,7 @@ const projectsData = [
     tech: ['React', 'Dashboard', 'Data Viz'],
     credentials: { email: 'admin@realestate.com', password: 'Admin@12345' },
   },
+  // Add more projects here...
 ];
 
 const sectionVariants = {
