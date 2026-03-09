@@ -25,12 +25,19 @@ const TechCarousel = () => {
   const [hasMounted, setHasMounted] = useState(false); // State to track client mount
   const requestRef = useRef();
 
-  const radius = 100;
-  const iconSize = 'w-10 h-10 sm:w-12 sm:h-12';
+  const [radius, setRadius] = useState(100);
+  const iconSize = 'w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12';
 
   // Set hasMounted to true only on the client after initial render
   useEffect(() => {
     setHasMounted(true);
+    const updateRadius = () => {
+      const w = window.innerWidth;
+      setRadius(w < 400 ? 65 : w < 640 ? 80 : 100);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
   }, []);
 
   // Animation loop
@@ -48,7 +55,7 @@ const TechCarousel = () => {
   }, [hasMounted]); // Depend on hasMounted
 
   return (
-    <div className="relative w-64 h-64 sm:w-72 sm:h-72 mx-auto flex items-center justify-center mb-8">
+    <div className="relative w-44 h-44 sm:w-64 sm:h-64 md:w-72 md:h-72 mx-auto flex items-center justify-center mb-4 sm:mb-8">
       {/* Only render icons after mounting on the client */}
       {hasMounted && technologies.map((tech, index) => {
         const itemAngle = (360 / technologies.length) * index + angle;

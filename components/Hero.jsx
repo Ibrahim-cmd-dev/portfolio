@@ -1,51 +1,36 @@
-'use client'; // Add this directive at the top
+'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion'; // Import motion
-
-// Import the EnvelopeCard component from its separate file
+import { motion } from 'framer-motion';
 import EnvelopeCard from './EnvelopeCard';
 
-
-// Main Hero Component (Now imports and uses EnvelopeCard)
 const Hero = () => {
-
-  // Animation variants for the container of the left column text
   const leftContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Time between each main block animation starts
-        delayChildren: 0.3,
-      }
+      transition: { staggerChildren: 0.15, delayChildren: 0.3 }
     }
   };
 
-  // Variants for the H1 container to stagger each character
   const nameContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.05, // Time between each character animation
-        delayChildren: 0.4, // Delay after the left container starts
-      }
+      transition: { staggerChildren: 0.04, delayChildren: 0.4 }
     }
   };
 
-  // Variants for each character in the H1
   const characterVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0, filter: 'blur(4px)' },
     visible: {
       y: 0,
       opacity: 1,
+      filter: 'blur(0px)',
       transition: { duration: 0.4, ease: 'easeOut' }
     }
   };
 
-  // Simpler slide-up + fade-in for other text items (h2, p, button)
-  // Also used for the right column now
   const itemVariants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
@@ -55,92 +40,95 @@ const Hero = () => {
     }
   };
 
-  // *** REMOVED rightContainerVariants as we'll reuse itemVariants ***
-  // const rightContainerVariants = { ... };
-
-  // Text content for the H1 to easily map over it
   const name = "Ibrahim Mohamed";
 
-
   return (
-    // Section container
-    // Adjusted padding and top margin for different screen sizes
-    // *** REMOVED overflow-hidden ***
-    <section className='flex flex-col lg:flex-row gap-8 lg:gap-12 p-6 sm:p-8 md:p-10 mt-24 sm:mt-32 md:mt-48 items-center'>
+    <section className="relative flex flex-col lg:flex-row gap-6 lg:gap-12 px-4 sm:px-8 md:px-10 pt-24 sm:pt-32 md:pt-36 pb-8 items-center overflow-hidden">
+      {/* Ambient glow orbs */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-amber-400/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-300/5 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* Left Column: Text Content */}
-      {/* Apply overall stagger container */}
+      {/* Left Column */}
       <motion.div
-        className='w-full lg:w-3/5 flex flex-col gap-4 text-center lg:text-left'
+        className="w-full lg:w-3/5 flex flex-col gap-5 text-center lg:text-left z-10"
         variants={leftContainerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* H1 - Name with character animation */}
-        {/* Adjusted font size for different screen sizes */}
+        {/* Subtle tag above name */}
+        <motion.div variants={itemVariants} className="flex items-center gap-2 justify-center lg:justify-start">
+          <span className="w-8 h-[2px] bg-amber-300 rounded-full" />
+          <span className="text-xs font-medium tracking-[0.3em] uppercase text-amber-300/80">
+            Frontend Developer
+          </span>
+          <span className="w-8 h-[2px] bg-amber-300 rounded-full" />
+        </motion.div>
+
+        {/* Animated gradient name */}
         <motion.h1
-          className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight' // Added leading-tight for better line spacing
-          variants={nameContainerVariants} // Use name container variants here
-          aria-label={name} // Add aria-label for accessibility
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+          variants={nameContainerVariants}
+          aria-label={name}
         >
-          {/* Map over each character */}
           {name.split('').map((char, index) => (
             <motion.span
               key={`${char}-${index}`}
-              variants={characterVariants} // Each character uses these variants
-              className="inline-block" // Needed for transform animations
-              style={{ paddingRight: char === ' ' ? '0.25em' : '0' }} // Add space for space character
+              variants={characterVariants}
+              className="inline-block animate-gradient-text"
+              style={{ paddingRight: char === ' ' ? '0.2em' : '0' }}
             >
-              {char === ' ' ? '\u00A0' : char} {/* Render non-breaking space for spaces */}
+              {char === ' ' ? '\u00A0' : char}
             </motion.span>
           ))}
         </motion.h1>
 
-        {/* H2 - Subtitle with simpler item animation */}
-        {/* Adjusted font size for different screen sizes */}
-        <motion.h2
-          className='text-xl sm:text-2xl md:text-3xl font-semibold text-amber-300'
-          variants={itemVariants} // Use simpler item variants
-        >
-          Frontend Developer {/* Or your specific title */}
-        </motion.h2>
+        {/* Subtitle with shimmer line */}
+        <motion.div variants={itemVariants} className="space-y-1">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90">
+            Building <span className="text-amber-300">Digital Experiences</span>
+          </h2>
+          <div className="h-[1px] w-32 mx-auto lg:mx-0 bg-gradient-to-r from-amber-300/60 via-amber-300/20 to-transparent" />
+        </motion.div>
 
-        {/* P - Paragraph with simpler item animation */}
-        {/* Adjusted font size for different screen sizes */}
+        {/* Description */}
         <motion.p
-          className='text-sm sm:text-base md:text-lg text-slate-300 mt-4'
-          variants={itemVariants} // Use simpler item variants
+          className="text-sm sm:text-base md:text-lg text-slate-400 mt-2 max-w-lg mx-auto lg:mx-0 leading-relaxed"
+          variants={itemVariants}
         >
-          Passionate about creating interactive and user-friendly web experiences. Turning ideas into reality with modern web technologies.
+          Crafting interactive, pixel-perfect web experiences with modern technologies.
+          Passionate about turning creative ideas into seamless digital products.
         </motion.p>
 
-        {/* Button container with simpler item animation */}
-        {/* Adjusted top margin for smaller screens */}
-        <motion.div className='mt-6 md:mt-8' variants={itemVariants}>
-           <a
-             href="#projects"
-             // Adjusted padding/text size slightly for smaller screens
-             className='inline-block bg-amber-300 text-zinc-900 hover:bg-amber-200 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg transition-colors duration-300 font-semibold tracking-wide shadow-md hover:shadow-lg text-sm sm:text-base'
-           >
-             View My Work
-           </a>
+        {/* CTA buttons */}
+        <motion.div className="mt-6 md:mt-8 flex gap-4 justify-center lg:justify-start flex-wrap" variants={itemVariants}>
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 bg-amber-300 text-zinc-900 hover:bg-amber-200 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full transition-all duration-300 font-semibold tracking-wide shadow-lg hover:shadow-amber-300/30 hover:scale-105 text-sm sm:text-base"
+          >
+            View My Work
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 border border-amber-300/30 text-amber-300 hover:border-amber-300 hover:bg-amber-300/5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full transition-all duration-300 font-semibold tracking-wide text-sm sm:text-base"
+          >
+            Get In Touch
+          </a>
         </motion.div>
       </motion.div>
 
-      {/* Right Column: Envelope Card Component */}
-      {/* Wrap with motion.div and apply variants */}
-      {/* Adjusted top margin for smaller screens */}
-      {/* *** UPDATED: Using itemVariants and added delay *** */}
+      {/* Right Column: Envelope Card */}
       <motion.div
-        className='w-full lg:w-2/5 flex justify-center items-center mt-12 lg:mt-0' // Increased mobile top margin slightly
-        variants={itemVariants} // Use the same slide-up/fade-in as other items
+        className="w-full lg:w-2/5 flex justify-center items-center mt-6 sm:mt-8 lg:mt-0 z-10"
+        variants={itemVariants}
         initial="hidden"
         animate="visible"
-        transition={{ delay: 0.5, duration: 0.5, ease: 'easeOut' }} // Add delay to stagger after left column
+        transition={{ delay: 0.5, duration: 0.5, ease: 'easeOut' }}
       >
         <EnvelopeCard />
       </motion.div>
-
     </section>
   );
 };

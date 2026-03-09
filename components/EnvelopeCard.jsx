@@ -13,7 +13,7 @@ const EnvelopeCard = () => {
     // Outer container: Set max width, aspect ratio, and group for hover effects
     // Add group class here for hover effects on desktop
     <div
-      className="w-full max-w-[300px] sm:max-w-[350px] mx-auto group"
+      className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[350px] mx-auto group"
       onClick={toggleOpen} // Click for mobile/tablet
     >
       {/* Card structure */}

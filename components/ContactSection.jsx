@@ -1,67 +1,56 @@
-'use client'; // Needed for useState and Framer Motion
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Import icons for social buttons
-import { FaInstagram, FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'; // Added FaWhatsapp, removed FaTwitter
+import { FaInstagram, FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import { FiMail, FiUnlock } from 'react-icons/fi';
+import { socialLinks } from '@/lib/constants';
 
 // --- Unlock Card Component ---
 const UnlockCard = ({ onClick }) => {
   return (
     <motion.div
-      className="group cursor-pointer relative rounded-2xl shadow-inner shadow-gray-700 flex flex-col justify-around items-center w-40 h-80 bg-zinc-900 text-slate-200 overflow-hidden"
+      className="group cursor-pointer relative rounded-2xl shadow-inner shadow-gray-700 flex flex-col justify-around items-center w-40 h-80 bg-zinc-900 text-slate-200 overflow-hidden border border-zinc-700/50"
       onClick={onClick}
-      // Framer Motion props for exit animation
       initial={{ opacity: 1, x: 0 }}
-      exit={{ x: '-110%', opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }} // Slide left and fade out
-      whileHover={{ scale: 1.05, skewX: 2, skewY: -2, transition: { duration: 0.3 } }} // Simpler hover effect
+      exit={{ x: '-110%', opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
+      whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
     >
-      {/* Background Blobs (Recreated with divs) */}
-      <div className="absolute w-20 h-20 bg-amber-400/30 rounded-full -z-10 blur-xl top-20 right-16 transition-transform duration-500 group-hover:translate-x-11 group-hover:-translate-y-11"></div>
-      <div className="absolute w-12 h-12 bg-cyan-400/30 rounded-full -z-10 blur-xl bottom-32 right-16 transition-transform duration-500 group-hover:translate-x-11 group-hover:translate-y-16"></div>
+      {/* Background Blobs */}
+      <div className="absolute w-20 h-20 bg-amber-400/30 rounded-full -z-10 blur-xl top-20 right-16 transition-transform duration-500 group-hover:translate-x-11 group-hover:-translate-y-11" />
+      <div className="absolute w-12 h-12 bg-cyan-400/30 rounded-full -z-10 blur-xl bottom-32 right-16 transition-transform duration-500 group-hover:translate-x-11 group-hover:translate-y-16" />
 
-      {/* Text Content */}
-      <div className="flex flex-col font-extrabold text-6xl z-10 text-center">
-        {/* You can replace these numbers if desired */}
-        <span>03</span>
-        <span>40</span>
+      {/* Initials / Icon */}
+      <div className="flex flex-col items-center gap-2 z-10">
+        <div className="w-16 h-16 rounded-full bg-amber-300/10 border border-amber-300/20 flex items-center justify-center">
+          <span className="text-2xl font-bold text-amber-300">IM</span>
+        </div>
+        <span className="text-xs text-slate-400">Ibrahim Mohamed</span>
       </div>
 
       {/* Unlock Text */}
-      <div className="flex flex-row justify-center text-sm font-thin items-center gap-1 z-10">
-        <span>Touch to unlock</span>
-        {/* Lock Icon SVG */}
-        <svg y="0" xmlns="http://www.w3.org/2000/svg" x="0" width="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" height="100" className="w-4 h-4 stroke-current">
-          <path strokeWidth="8" strokeLinejoin="round" strokeLinecap="round" fill="none" d="M33.9,46V29.9a16.1,16.1,0,0,1,32.2,0M50,62v8.1m-24.1,16H74.1a8,8,0,0,0,8-8V54a8,8,0,0,0-8-8H25.9a8,8,0,0,0-8,8V78.1A8,8,0,0,0,25.9,86.1Z"></path>
-        </svg>
+      <div className="flex flex-row justify-center text-sm font-thin items-center gap-2 z-10">
+        <FiUnlock className="w-4 h-4 text-amber-300" />
+        <span className="text-slate-300">Tap to reveal</span>
       </div>
     </motion.div>
   );
 };
 
 // --- Social Buttons Component ---
-
-const socialLinks = {
-  github: 'https://github.com/Ibrahim-cmd-dev',
-  linkedin: 'https://www.linkedin.com/in/ibrahim-mohamed-184872375/',
-  whatsapp: 'https://wa.me/+201004333589', 
-  instagram: 'https://www.instagram.com/mazenx98/',
-};
-
 const SocialButtons = () => {
-  // Animation variants for the container and buttons
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        delay: 0.3, // Delay after unlock card exits
-        when: "beforeChildren", // Animate container first
-        staggerChildren: 0.15 // Stagger button animations
+        delay: 0.3,
+        when: "beforeChildren",
+        staggerChildren: 0.1
       }
     }
   };
@@ -71,102 +60,85 @@ const SocialButtons = () => {
     visible: { y: 0, opacity: 1 }
   };
 
+  const buttons = [
+    { icon: FaGithub, href: socialLinks.github, color: '#6e5494', label: 'GitHub' },
+    { icon: FaLinkedinIn, href: socialLinks.linkedin, color: '#0A66C2', label: 'LinkedIn' },
+    { icon: FaInstagram, href: socialLinks.instagram, color: '#cc39a4', label: 'Instagram' },
+    { icon: FaWhatsapp, href: socialLinks.whatsapp, color: '#25D366', label: 'WhatsApp' },
+  ];
+
   return (
     <motion.div
-      className="flex flex-col gap-4 items-center" // Increased gap slightly
+      className="flex flex-col items-center gap-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Row 1: GitHub and LinkedIn */}
-      <div className="flex flex-row gap-4">
-         {/* GitHub */}
-         <motion.a
-          href={socialLinks.github}
-          target="_blank" rel="noopener noreferrer"
-          className="w-[90px] h-[90px] outline-none border-none bg-zinc-800 rounded-[90px_5px_5px_5px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-slate-600 group flex items-center justify-center" // Adjusted shape
-          variants={buttonVariants}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaGithub className="text-4xl text-slate-300 group-hover:text-white transition-colors" />
-        </motion.a>
-
-        {/* LinkedIn */}
-         <motion.a
-          href={socialLinks.linkedin}
-          target="_blank" rel="noopener noreferrer"
-          className="w-[90px] h-[90px] outline-none border-none bg-zinc-800 rounded-[5px_90px_5px_5px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-[#0A66C2] group flex items-center justify-center" // Adjusted shape
-          variants={buttonVariants}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaLinkedinIn className="text-4xl text-[#0A66C2] group-hover:text-white transition-colors" />
-        </motion.a>
+      {/* Social icons row */}
+      <div className="flex flex-wrap justify-center gap-4">
+        {buttons.map(({ icon: Icon, href, color, label }) => (
+          <motion.a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-14 h-14 rounded-xl bg-zinc-800/80 border border-zinc-700/50 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-amber-300/30 hover:shadow-lg group"
+            variants={buttonVariants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            style={{ '--hover-color': color }}
+            aria-label={label}
+          >
+            <Icon className="text-2xl text-slate-300 group-hover:text-amber-300 transition-colors" />
+          </motion.a>
+        ))}
       </div>
 
-      {/* Row 2: Instagram and WhatsApp */}
-      <div className="flex flex-row gap-4">
-        {/* Instagram */}
-        <motion.a
-          href={socialLinks.instagram}
-          target="_blank" rel="noopener noreferrer"
-          className="w-[90px] h-[90px] outline-none border-none bg-zinc-800 rounded-[5px_5px_5px_90px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-[#cc39a4] group flex items-center justify-center" // Adjusted shape
-          variants={buttonVariants}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaInstagram className="text-4xl text-[#cc39a4] group-hover:text-white transition-colors" />
-        </motion.a>
-
-        {/* WhatsApp */}
-        <motion.a
-          href={socialLinks.whatsapp}
-          target="_blank" rel="noopener noreferrer"
-          className="w-[90px] h-[90px] outline-none border-none bg-zinc-800 rounded-[5px_5px_90px_5px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-[#25D366] group flex items-center justify-center" // Adjusted shape and hover color
-          variants={buttonVariants}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaWhatsapp className="text-4xl text-[#25D366] group-hover:text-white transition-colors" />
-        </motion.a>
-      </div>
+      {/* Email link */}
+      <motion.a
+        href={`mailto:${socialLinks.email}`}
+        className="inline-flex items-center gap-2 px-4 sm:px-6 py-3 rounded-full bg-zinc-800/80 border border-zinc-700/50 text-slate-300 hover:text-amber-300 hover:border-amber-300/30 transition-all duration-300 group max-w-full"
+        variants={buttonVariants}
+      >
+        <FiMail className="w-5 h-5 group-hover:text-amber-300 transition-colors" />
+        <span className="text-xs sm:text-sm font-medium truncate">{socialLinks.email}</span>
+      </motion.a>
     </motion.div>
   );
 };
 
-
-// --- Main Contact Section Component ---
+// --- Main Contact Section ---
 const ContactSection = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
 
-  const handleUnlock = () => {
-    setIsUnlocked(true);
-  };
-
   return (
     <motion.section
-      id="contact" // Add ID for potential navbar link
-      className="flex flex-col items-center justify-center min-h-[60vh] p-6 sm:p-8 md:p-10 my-20 lg:my-32 overflow-hidden" // Ensure sufficient height and center content
+      id="contact"
+      className="relative flex flex-col items-center justify-center min-h-[40vh] sm:min-h-[50vh] px-4 sm:px-8 md:px-10 py-12 sm:py-16 lg:py-20 overflow-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="text-3xl sm:text-4xl font-bold text-white mb-10 md:mb-16 text-center">
-        Get In Touch
-      </h2>
+      {/* Ambient glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-300/5 rounded-full blur-[200px] pointer-events-none" />
 
-      {/* AnimatePresence handles the exit animation */}
+      <div className="text-center mb-10 md:mb-14 z-10">
+        <div className="flex items-center gap-3 justify-center mb-4">
+          <span className="w-12 h-[1px] bg-amber-300/40" />
+          <span className="text-xs font-medium tracking-[0.3em] uppercase text-amber-300/70">Say hello</span>
+          <span className="w-12 h-[1px] bg-amber-300/40" />
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white">Get In Touch</h2>
+      </div>
+
       <AnimatePresence mode="wait">
         {!isUnlocked ? (
-          // Key is important for AnimatePresence to track the element
-          <UnlockCard key="unlock-card" onClick={handleUnlock} />
+          <UnlockCard key="unlock-card" onClick={() => setIsUnlocked(true)} />
         ) : (
           <SocialButtons key="social-buttons" />
         )}
       </AnimatePresence>
-
     </motion.section>
   );
 };

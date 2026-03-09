@@ -1,43 +1,40 @@
 import React from 'react';
-// Optional: Import icons if you want to include social links again
 import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { socialLinks } from '@/lib/constants';
 
-// Optional: Define social links again or import from a shared constants file
-const socialLinks = {
-  github: 'https://github.com/Ibrahim-cmd-dev',
-  linkedin: 'https://www.linkedin.com/in/ibrahim-mohamed-184872375/',
-  whatsapp: 'https://wa.me/+201004333589', 
-  instagram: 'https://www.instagram.com/mazenx98/',
-};
+const footerSocials = [
+  { icon: FaGithub, href: socialLinks.github, label: 'GitHub' },
+  { icon: FaLinkedinIn, href: socialLinks.linkedin, label: 'LinkedIn' },
+  { icon: FaInstagram, href: socialLinks.instagram, label: 'Instagram' },
+  { icon: FaWhatsapp, href: socialLinks.whatsapp, label: 'WhatsApp' },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-zinc-900 text-slate-400 px-6 py-8 mt-auto"> {/* mt-auto pushes footer down */}
-      <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
-
-        {/* Copyright Notice */}
-        <div className="text-sm text-center sm:text-left">
+    <footer className="border-t border-zinc-800 bg-zinc-900/50 backdrop-blur-sm px-4 sm:px-6 py-6 sm:py-8 mt-auto">
+      <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+        {/* Copyright */}
+        <div className="text-xs sm:text-sm text-slate-500 text-center sm:text-left">
           &copy; {currentYear} Ibrahim Mohamed. All rights reserved.
         </div>
 
-        {/* Optional: Social Links */}
+        {/* Social Links */}
         <div className="flex items-center gap-4">
-          <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-amber-300 transition-colors duration-200">
-            <FaGithub className="h-5 w-5" />
-          </a>
-          <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-amber-300 transition-colors duration-200">
-            <FaLinkedinIn className="h-5 w-5" />
-          </a>
-          <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-amber-300 transition-colors duration-200">
-            <FaInstagram className="h-5 w-5" />
-          </a>
-          <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-amber-300 transition-colors duration-200">
-            <FaWhatsapp className="h-5 w-5" />
-          </a>
+          {footerSocials.map(({ icon: Icon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="text-slate-500 hover:text-amber-300 transition-colors duration-300"
+            >
+              <Icon className="h-5 w-5" />
+            </a>
+          ))}
         </div>
-
       </div>
     </footer>
   );
