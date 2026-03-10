@@ -142,8 +142,8 @@ const AboutMe = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
     >
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-300/5 rounded-full blur-[200px] pointer-events-none" />
+      {/* Ambient glow — hidden on mobile to prevent GPU overload */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-300/5 rounded-full blur-[200px] pointer-events-none hidden lg:block" />
 
       {/* Section header */}
       <motion.div variants={aboutTextVariants} className="text-center z-10">
@@ -157,7 +157,7 @@ const AboutMe = () => {
 
       {/* About Me Text Block */}
       <motion.div
-        className="w-full max-w-3xl bg-zinc-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-zinc-700/50 glow-border z-10"
+        className="w-full max-w-3xl bg-zinc-800/80 p-6 sm:p-8 rounded-2xl border border-zinc-700/50 glow-border z-10"
         variants={aboutTextVariants}
       >
         <div className="text-center space-y-4">
@@ -180,7 +180,7 @@ const AboutMe = () => {
       >
         {/* Skills Card */}
         <motion.div
-          className="w-full md:w-1/2 lg:max-w-lg bg-zinc-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-zinc-700/50 glow-border"
+          className="w-full md:w-1/2 lg:max-w-lg bg-zinc-800/80 p-6 sm:p-8 rounded-2xl border border-zinc-700/50 glow-border"
           variants={skillsCardVariants}
         >
           <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-6 text-center md:text-left">

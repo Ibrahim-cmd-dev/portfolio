@@ -13,24 +13,6 @@ const Hero = () => {
     }
   };
 
-  const nameContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.4 }
-    }
-  };
-
-  const characterVariants = {
-    hidden: { y: 30, opacity: 0, filter: 'blur(4px)' },
-    visible: {
-      y: 0,
-      opacity: 1,
-      filter: 'blur(0px)',
-      transition: { duration: 0.4, ease: 'easeOut' }
-    }
-  };
-
   const itemVariants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
@@ -44,9 +26,9 @@ const Hero = () => {
 
   return (
     <section className="relative flex flex-col lg:flex-row gap-6 lg:gap-12 px-4 sm:px-8 md:px-10 pt-24 sm:pt-32 md:pt-36 pb-8 items-center overflow-hidden">
-      {/* Ambient glow orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-amber-400/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-300/5 rounded-full blur-[150px] pointer-events-none" />
+      {/* Ambient glow orbs — hidden on mobile to prevent GPU overload */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-amber-400/10 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-300/5 rounded-full blur-[150px] pointer-events-none hidden lg:block" />
 
       {/* Left Column */}
       <motion.div
@@ -64,22 +46,12 @@ const Hero = () => {
           <span className="w-8 h-[2px] bg-amber-300 rounded-full" />
         </motion.div>
 
-        {/* Animated gradient name */}
+        {/* Animated gradient name — single element for mobile performance */}
         <motion.h1
-          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
-          variants={nameContainerVariants}
-          aria-label={name}
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tight animate-gradient-text"
+          variants={itemVariants}
         >
-          {name.split('').map((char, index) => (
-            <motion.span
-              key={`${char}-${index}`}
-              variants={characterVariants}
-              className="inline-block animate-gradient-text"
-              style={{ paddingRight: char === ' ' ? '0.2em' : '0' }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
-          ))}
+          {name}
         </motion.h1>
 
         {/* Subtitle with shimmer line */}

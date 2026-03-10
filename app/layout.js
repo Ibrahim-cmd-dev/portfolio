@@ -26,7 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     // Apply the font variable to the html tag
-    <html lang="en" className={`${jost.variable} overflow-x-hidden`}>
+    <html lang="en" className={`${jost.variable}`}>
       {/* Apply the font class name directly to the body */}
       <body
         className={`${jost.className} antialiased flex flex-col min-h-screen overflow-x-hidden`}

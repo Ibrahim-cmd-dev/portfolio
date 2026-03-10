@@ -120,8 +120,8 @@ const ContactSection = () => {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Ambient glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-300/5 rounded-full blur-[200px] pointer-events-none" />
+      {/* Ambient glow — hidden on mobile to prevent GPU overload */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-300/5 rounded-full blur-[200px] pointer-events-none hidden lg:block" />
 
       <div className="text-center mb-10 md:mb-14 z-10">
         <div className="flex items-center gap-3 justify-center mb-4">

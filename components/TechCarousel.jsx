@@ -1,8 +1,6 @@
-// components/TechCarousel.jsx (or your chosen path)
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react'; // Added useState
-import { motion } from 'framer-motion';
+import React from 'react';
 import { FaReact, FaHtml5, FaCss3Alt, FaJsSquare, FaPhp, FaLaravel, FaDatabase } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiFramer, SiPostman } from 'react-icons/si';
 
@@ -21,67 +19,39 @@ const technologies = [
 ];
 
 const TechCarousel = () => {
-  const [angle, setAngle] = useState(0);
-  const [hasMounted, setHasMounted] = useState(false); // State to track client mount
-  const requestRef = useRef();
-
-  const [radius, setRadius] = useState(100);
-  const iconSize = 'w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12';
-
-  // Set hasMounted to true only on the client after initial render
-  useEffect(() => {
-    setHasMounted(true);
-    const updateRadius = () => {
-      const w = window.innerWidth;
-      setRadius(w < 400 ? 65 : w < 640 ? 80 : 100);
-    };
-    updateRadius();
-    window.addEventListener('resize', updateRadius);
-    return () => window.removeEventListener('resize', updateRadius);
-  }, []);
-
-  // Animation loop
-  const animateCarousel = () => {
-    setAngle((prevAngle) => (prevAngle + 0.2) % 360);
-    requestRef.current = requestAnimationFrame(animateCarousel);
-  };
-
-  useEffect(() => {
-    // Start animation only after mounting
-    if (hasMounted) {
-        requestRef.current = requestAnimationFrame(animateCarousel);
-        return () => cancelAnimationFrame(requestRef.current); // Cleanup on unmount
-    }
-  }, [hasMounted]); // Depend on hasMounted
+  const count = technologies.length;
+  const duration = 20; // seconds for one full rotation
 
   return (
     <div className="relative w-44 h-44 sm:w-64 sm:h-64 md:w-72 md:h-72 mx-auto flex items-center justify-center mb-4 sm:mb-8">
-      {/* Only render icons after mounting on the client */}
-      {hasMounted && technologies.map((tech, index) => {
-        const itemAngle = (360 / technologies.length) * index + angle;
-        const x = radius * Math.cos((itemAngle * Math.PI) / 180);
-        const y = radius * Math.sin((itemAngle * Math.PI) / 180);
+      <style>{`
+        @keyframes orbit {
+          from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+          to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+        }
+        .orbit-icon {
+          position: absolute;
+          animation: orbit ${duration}s linear infinite;
+          animation-delay: var(--orbit-delay);
+          will-change: transform;
+        }
+      `}</style>
 
-        return (
-          <motion.div
-            key={tech.name}
-            className={`absolute flex items-center justify-center p-2 bg-zinc-700 rounded-full shadow-md ${iconSize}`}
-            style={{
-              // Use transform directly for potentially better performance with motion
-              // Framer motion handles vendor prefixes if needed
-              transform: `translateX(${x}px) translateY(${y}px)`,
-            }}
-            // Animate position using Framer Motion's x/y props if preferred,
-            // but direct transform might be okay here since angle updates frequently.
-            // initial={{ x: 0, y: 0 }} // Example if using x/y props
-            // animate={{ x: x, y: y }}
-            // transition={{ duration: 0.1, ease: "linear"}} // Short transition if using x/y props
-            title={tech.name}
-          >
+      {technologies.map((tech, index) => (
+        <div
+          key={tech.name}
+          className="orbit-icon"
+          style={{
+            '--orbit-r': 'clamp(58px, 11vw, 100px)',
+            '--orbit-delay': `${-(index / count) * duration}s`,
+          }}
+          title={tech.name}
+        >
+          <div className="w-7 h-7 sm:w-10 sm:h-10 bg-zinc-700 rounded-full flex items-center justify-center shadow-md p-1.5">
             <tech.Icon className="w-full h-full" style={{ color: tech.color }} />
-          </motion.div>
-        );
-      })}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

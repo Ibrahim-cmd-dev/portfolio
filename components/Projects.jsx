@@ -63,8 +63,8 @@ const Projects = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.05 }}
     >
-      {/* Ambient glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-amber-300/5 rounded-full blur-[200px] pointer-events-none" />
+      {/* Ambient glow — hidden on mobile to prevent GPU overload */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-amber-300/5 rounded-full blur-[200px] pointer-events-none hidden lg:block" />
 
       {/* Section Title */}
       <motion.div

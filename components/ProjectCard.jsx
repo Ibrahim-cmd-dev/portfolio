@@ -33,7 +33,7 @@ const ProjectCard = ({
 
   return (
     <motion.div variants={cardVariants} className="h-full">
-      <div className="relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-700/50 bg-zinc-800/60 backdrop-blur-sm transition-all duration-500 hover:border-amber-300/30 hover:shadow-xl hover:shadow-amber-300/5 glow-border">
+      <div className="relative h-full flex flex-col overflow-hidden rounded-2xl border border-zinc-700/50 bg-zinc-800/90 transition-all duration-500 hover:border-amber-300/30 hover:shadow-xl hover:shadow-amber-300/5 glow-border">
         {/* Clickable card link */}
         <a
           href={liveUrl || '#'}
@@ -55,7 +55,7 @@ const ProjectCard = ({
             {/* Badge */}
             {badge && (
               <div className="absolute top-4 left-4 z-10">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
+                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                   isLive
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                     : 'bg-amber-300/20 text-amber-300 border border-amber-300/30'
