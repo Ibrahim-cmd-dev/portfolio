@@ -48,7 +48,7 @@ const projectsData = [
     description: 'A modern real estate company website designed to present services, build trust with potential clients, and generate leads. The project focuses on clean layouts, strong visual branding, and responsive sections highlighting the company’s expertise, services, and contact opportunities.',
     liveUrl: 'https://www.heroesrealestate.homes/',
     imageUrl: '/heroes-realestate.png',
-    badge: 'Business Website',
+    badge: 'Live Business Website',
     tech: ['Next.js', 'React', 'Tailwind CSS', 'UI/UX'],
   },
   // Add more projects here...
